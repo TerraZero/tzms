@@ -2,13 +2,17 @@ const fs = require('fs');
 
 module.exports = class Config {
 
-  get(name, flush = false) {
+  get(name, fallback = null, flush = false) {
     const path = use._root + '/config/' + name + '.json';
 
     if (flush) {
       delete require.cache[require.resolve(path)]
     }
-    return require(path);
+    try {
+      return require(path);
+    } catch (e) {
+      return fallback;
+    }
   }
 
   set(name, data = {}) {

@@ -4,7 +4,10 @@ module.exports = class ExtensionManager {
 
   constructor() {
     this._extensions = sys.get('core/Config').get('extensions');
-    this._system = sys.get('core/Config').get('system');
+    this._system = sys.get('core/Config').get('kernal.system', {
+      theme: [],
+      module: [],
+    });
 
     this._register = null;
     this._modules = null;

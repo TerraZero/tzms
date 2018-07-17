@@ -15,7 +15,7 @@ module.exports = class Renderer {
 
   setTheme(theme = null) {
     if (theme === null) {
-      this._theme = sys.get('core/Config').get('themes').active;
+      this._theme = sys.get('core/Config').get('kernal.themes').active;
     } else {
       this._theme = theme;
     }

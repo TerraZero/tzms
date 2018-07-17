@@ -7,6 +7,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Launch Program",
+      "args": [
+        "en",
+        "user"
+      ],
+      "program": "${workspaceFolder}/bin/ext.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "Compiler",
       "program": "${workspaceFolder}/bin/compile.js"
     },
