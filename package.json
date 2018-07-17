@@ -1,5 +1,5 @@
 {
-  "name": "http-server",
+  "name": "tzms",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,10 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "cookies": "^0.7.1",
+    "dart-sass": "^1.9.1",
     "formidable": "^1.2.1",
     "glob": "^7.1.2",
     "node-querybuilder": "^1.2.2",
-    "node-sass": "^4.9.2",
     "pug": "^2.0.3",
     "tzero-annotations": "^1.0.4",
     "url-pattern": "^1.0.3"

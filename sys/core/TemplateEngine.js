@@ -1,6 +1,6 @@
 const glob = require('glob');
 const pug = require('pug');
-const sass = require('node-sass');
+const sass = require('dart-sass');
 const fs = require('fs');
 const extensions = sys.get('core/ExtensionManager');
 
