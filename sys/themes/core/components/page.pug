@@ -1,0 +1,14 @@
+extends /_base
+
+block content
+  .page
+    if header
+      .header
+        +render(header)
+
+    .content
+      +render(content)
+
+    if footer
+      .footer
+        +render(footer)

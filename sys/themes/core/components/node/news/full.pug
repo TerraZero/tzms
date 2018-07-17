@@ -1,0 +1,7 @@
+extends /_base
+
+block content
+  ul
+    for item in list
+      li
+        | #{item.key}: #{item.value}

@@ -1,0 +1,15 @@
+extends /_base
+
+block prepare
+  - var rendered_body = render(body);
+  - var meta_data = meta();
+
+block content
+  doctype html
+  html
+    head
+      title
+        +render(title)
+      +render(meta_data.styles)
+    body
+      | !{rendered_body}

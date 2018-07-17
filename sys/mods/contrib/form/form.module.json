@@ -1,0 +1,8 @@
+{
+  "name": "Form",
+  "description": "Provides form functions",
+  "version": "1.0.0.0",
+  "dependencies": [
+    "kernal"
+  ]
+}

@@ -1,0 +1,11 @@
+extends /_base
+
+block content
+  .form-field&attributes(attr)
+    if errors.length
+      .form-field__errors
+        +render(errors)
+    if label
+      .form-field__label
+        +render(label)
+    input.form-field__input(type=type, name=name, value=val || false)

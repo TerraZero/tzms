@@ -1,0 +1,6 @@
+{
+  "name": "Admin",
+  "description": "Base admin theme",
+  "version": "1.0.0.0",
+  "extends": "core"
+}

@@ -1,0 +1,14 @@
+extends /_base
+
+block prepare
+  - var n = 0;
+
+block content
+  .multi-field&attributes(attr)
+    while n < number
+      - n++
+      .multi-field__field
+        +render(generate(n))
+    .multi-field__actions
+      +render(actions)
+      +render(hidden)

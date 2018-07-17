@@ -1,0 +1,17 @@
+{
+  "server": {
+    "port": 80
+  },
+  "paths": {
+    "files": "files",
+    "tmp": "files/tmp",
+    "templates": "files/compile/templates",
+    "styles": "files/compile/styles"
+  },
+  "database": {
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "database": "http"
+  }
+}
