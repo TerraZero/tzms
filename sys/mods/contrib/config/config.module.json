@@ -1,0 +1,8 @@
+{
+  "name": "Config",
+  "description": "Provides config generators",
+  "version": "1.0.0.0",
+  "dependencies": [
+    "kernal"
+  ]
+}

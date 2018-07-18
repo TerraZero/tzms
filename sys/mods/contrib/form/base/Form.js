@@ -2,10 +2,13 @@ const Hidden = use(':form/fields/Hidden');
 
 module.exports = class Form {
 
-  constructor(definition) {
+  constructor(definition, controller) {
+    this._controller = controller;
     this._fields = [];
     this._id = definition.id;
     this._error = false;
+    this._action = controller.req().url;
+    this._method = 'post';
 
     this._validates = [];
     this._submits = [];
@@ -36,7 +39,7 @@ module.exports = class Form {
   doSubmit(state) {
     this.doValidate(state);
     if (!this.isError()) {
-      this.submit();
+      this.submit(state);
       for (const submit of this._submits) {
         submit(this, state);
       }
@@ -87,6 +90,13 @@ module.exports = class Form {
     return this._fields;
   }
 
+  getField(name) {
+    for (const field of this.fields()) {
+      if (field.name() === name) return field;
+    }
+    return null;
+  }
+
   method(method = null) {
     if (method !== null) {
       this._method = method;
@@ -112,6 +122,11 @@ module.exports = class Form {
       method: this.method(),
       action: this.action(),
     };
+  }
+
+  redirect(url, code = 302) {
+    this._controller.redirect(url, code);
+    return this;
   }
 
 }

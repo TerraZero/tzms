@@ -1,7 +1,7 @@
 module.exports = class FormState {
 
   constructor(fields) {
-    this._fields = fields || null;
+    this._fields = fields || {};
   }
 
   getValue(field) {
@@ -9,12 +9,15 @@ module.exports = class FormState {
   }
 
   get(name) {
-    if (this._fields === null) return undefined;
-
     if (this._fields[name]) {
       return this._fields[name];
     }
     return undefined;
+  }
+
+  set(name, value) {
+    this._fields[name] = value;
+    return this;
   }
 
 }

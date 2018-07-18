@@ -57,6 +57,12 @@ module.exports = class NodeController extends Controller {
    * @Controller('/form/test')
    */
   formTest(resolve, params) {
+    const config = sys.get(':config/services/ConfigService');
+    const entities = config.getFactory('entity');
+
+    const e = entities.load('user');
+    entities.save(e);
+
     const builder = sys.get(':form/base/FormBuilder');
     const form = builder.get(this, 'form.test');
 

@@ -34,7 +34,7 @@ module.exports = class FormBuilder {
     }
 
     const Form = use(this._register[formID].namespace);
-    const form = new Form(this._register[formID]);
+    const form = new Form(this._register[formID], controller);
 
     if (state === null) {
       state = forms[formID] && forms[formID].state || new FormState();

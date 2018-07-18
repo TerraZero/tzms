@@ -22,6 +22,14 @@ module.exports = class Config {
     delete require.cache[require.resolve(path)];
   }
 
+  remove(name) {
+    const path = use._root + '/config/' + name + '.json';
+
+    fs.unlinkSync(path);
+    delete require.cache[require.resolve(path)];
+    return this;
+  }
+
   exist(name) {
     const path = use._root + '/config/' + name + '.json';
 

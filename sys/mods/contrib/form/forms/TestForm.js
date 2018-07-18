@@ -1,7 +1,6 @@
 const Form = use(':form/base/Form');
 const Textfield = use(':form/fields/Textfield');
 const Submit = use(':form/fields/Submit');
-const MultiField = use(':form/fields/MultiField');
 const FieldCollection = use(':form/base/FormFieldCollection');
 const URL = use('core/URL');
 
