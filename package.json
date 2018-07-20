@@ -13,8 +13,10 @@
     "dart-sass": "^1.9.1",
     "formidable": "^1.2.1",
     "glob": "^7.1.2",
+    "mysql2": "^1.5.3",
     "node-querybuilder": "^1.2.2",
     "pug": "^2.0.3",
+    "sequelize": "^4.38.0",
     "tzero-annotations": "^1.0.4",
     "url-pattern": "^1.0.3"
   }
