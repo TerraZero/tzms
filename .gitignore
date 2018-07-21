@@ -24,6 +24,9 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# wetland snapshots
+.data
+
 # tzms relevant files
 files/*
 !files/.gitkeep
