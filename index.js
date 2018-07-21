@@ -46,11 +46,7 @@ require('./boot').then(function () {
   function doResponse(data) {
     const controller = new data.Controller(data);
 
-    controller.prepare().then(function () {
-      new Promise(function (resolve, reject) {
-        controller[data.method].call(controller, resolve, data.params);
-      }).then(controller.doResponse.bind(controller));
-    });
+    controller._execute(data);
   }
 
   server.listen(sys.config('server.port'));

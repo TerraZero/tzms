@@ -19,4 +19,22 @@ module.exports = class Command {
     return args;
   }
 
+  hasDependencies(...args) {
+    let result = true;
+    const extensions = sys.get('core/ExtensionManager');
+
+    for (const ext of args) {
+      const info = extensions.getInfo(ext);
+
+      if (info === null) {
+        console.error('ERROR: Extension "' + ext + '" not found!');
+        result = false;
+      } else if (!info.enabled) {
+        console.error('ERROR: Extension "' + ext + '" is not enabled!');
+        result = false;
+      }
+    }
+    return result;
+  }
+
 }

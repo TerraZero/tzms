@@ -71,4 +71,40 @@ module.exports = class NodeController extends Controller {
     resolve();
   }
 
+  /**
+   * @Controller('/test/')
+   */
+  testf(resolve, params) {
+    this.loader(this.loadTest.bind(this));
+    this.content(this.testContent.bind(this));
+    resolve();
+  }
+
+  loadTest(resolve) {
+    this.db()
+      .getRepository(this.db().schema.Node)
+      .findOne(1)
+      .then((result) => {
+        this.data('node', result);
+      }).then(() => { return new Promise(this.loadTestd.bind(this)); })
+      .then(() => {
+        resolve();
+      });
+  }
+
+  loadTestd(resolve) {
+    return this.db()
+      .getRepository(this.db().schema.User)
+      .findOne(this.data('node').user_id)
+      .then((result) => {
+        this.data('user', result);
+        resolve();
+      });
+  }
+
+  testContent(resolve) {
+    this.write('content', this.data('node').title + ' - ' + this.data('user').username);
+    resolve();
+  }
+
 }

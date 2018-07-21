@@ -12,7 +12,7 @@
         "en",
         "user"
       ],
-      "program": "${workspaceFolder}/bin/ext.js"
+      "program": "${workspaceFolder}/bin/cool.js"
     },
     {
       "type": "node",

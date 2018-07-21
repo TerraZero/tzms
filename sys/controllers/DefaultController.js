@@ -4,6 +4,11 @@ module.exports = class Controller {
     this._data = data;
     this._data.data = {};
 
+    this._executes = {
+      loader: [],
+      content: [],
+    };
+
     this._build = {
       code: 200,
       header: {},
@@ -11,6 +16,93 @@ module.exports = class Controller {
       redirect: null,
       theme: null,
       meta: {},
+    };
+  }
+
+  _meta() {
+    return this._build.meta;
+  }
+
+  _prepare() {
+    return sys.trigger('controller.prepare', {
+      controller: this,
+    });
+  }
+
+  _doResponse() {
+    if (this.isRedirect()) {
+      this.res().writeHead(this._build.code, {
+        'Location': this._build.redirect.getURL(),
+      });
+      this.res().end();
+      return;
+    }
+
+    this.res().writeHead(this._build.code, this._build.header);
+
+    this.res().write(this._doRender());
+
+    this.res().end();
+  }
+
+  _doRender() {
+    const Renderer = use('core/Renderer');
+    const renderer = new Renderer(this);
+
+    return renderer.render(this);
+  }
+
+  _execute(data) {
+    this._prepare()
+      .then(() => {
+        if (this.isRedirect()) {
+          this._doResponse();
+        } else {
+          return Promise.resolve()
+            .then(() => { return this._doExecute(data); })
+            .then(() => { return this._doLoader() })
+            .then(() => { return this._doContent() })
+            .then(this._doResponse.bind(this));
+        }
+      });
+  }
+
+  _doExecute(data) {
+    return new Promise((resolve, reject) => {
+      this[data.method].call(this, resolve, data.params, reject);
+    });
+  }
+
+  _doLoader() {
+    const promises = [];
+
+    for (const loader of this._executes.loader) {
+      promises.push(new Promise((resolve, reject) => {
+        loader(resolve, reject);
+      }));
+    }
+    return Promise.all(promises);
+  }
+
+  _doContent() {
+    const promises = [];
+
+    for (const content of this._executes.content) {
+      promises.push(new Promise((resolve, reject) => {
+        content(resolve, reject);
+      }));
+    }
+    return Promise.all(promises);
+  }
+
+  render() {
+    this._build.body.theme = 'page';
+
+    return {
+      theme: 'html',
+      title: this.constructor.name,
+      body: this._build.body,
+      meta: this._meta.bind(this),
     };
   }
 
@@ -46,12 +138,6 @@ module.exports = class Controller {
       this._data.data[name] = value;
       return this;
     }
-  }
-
-  prepare() {
-    return sys.trigger('controller.prepare', {
-      controller: this,
-    });
   }
 
   write(region, data) {
@@ -93,42 +179,14 @@ module.exports = class Controller {
     this._build.header[key] = value;
   }
 
-  doRender() {
-    const Renderer = use('core/Renderer');
-    const renderer = new Renderer(this);
-
-    return renderer.render(this);
+  loader(func) {
+    this._executes.loader.push(func);
+    return this;
   }
 
-  doResponse() {
-    if (this.isRedirect()) {
-      this.res().writeHead(this._build.code, {
-        'Location': this._build.redirect.getURL(),
-      });
-      this.res().end();
-      return;
-    }
-
-    this.res().writeHead(this._build.code, this._build.header);
-
-    this.res().write(this.doRender());
-
-    this.res().end();
-  }
-
-  render() {
-    this._build.body.theme = 'page';
-
-    return {
-      theme: 'html',
-      title: this.constructor.name,
-      body: this._build.body,
-      meta: this.renderMeta.bind(this),
-    };
-  }
-
-  renderMeta() {
-    return this._build.meta;
+  content(func) {
+    this._executes.content.push(func);
+    return this;
   }
 
 }

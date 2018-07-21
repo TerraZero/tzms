@@ -1,0 +1,8 @@
+{
+  "name": "Database",
+  "description": "Provide database",
+  "version": "1.0.0.0",
+  "dependencies": [
+    "kernal"
+  ]
+}
