@@ -8,7 +8,7 @@ const URL = use('core/URL');
 /**
  * @Form('entity_type.form')
  */
-module.exports = class EntityTypeForm extends Form {
+module.exports = class EntityForm extends Form {
 
   getFactory() {
     if (this._factory === undefined) {

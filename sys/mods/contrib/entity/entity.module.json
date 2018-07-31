@@ -3,7 +3,7 @@
   "description": "Provides entities",
   "version": "1.0.0.0",
   "dependencies": [
-    "config",
+    "database",
     "form"
   ]
 }

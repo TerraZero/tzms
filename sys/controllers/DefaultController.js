@@ -60,8 +60,8 @@ module.exports = class Controller {
         } else {
           return Promise.resolve()
             .then(() => { return this._doExecute(data); })
-            .then(() => { return this._doLoader() })
-            .then(() => { return this._doContent() })
+            .then(() => { return this._doLoader(data) })
+            .then(() => { return this._doContent(data) })
             .then(this._doResponse.bind(this));
         }
       });
@@ -73,23 +73,23 @@ module.exports = class Controller {
     });
   }
 
-  _doLoader() {
+  _doLoader(data) {
     const promises = [];
 
     for (const loader of this._executes.loader) {
       promises.push(new Promise((resolve, reject) => {
-        loader(resolve, reject);
+        loader(resolve, reject, data.params);
       }));
     }
     return Promise.all(promises);
   }
 
-  _doContent() {
+  _doContent(data) {
     const promises = [];
 
     for (const content of this._executes.content) {
       promises.push(new Promise((resolve, reject) => {
-        content(resolve, reject);
+        content(resolve, reject, data.params);
       }));
     }
     return Promise.all(promises);
